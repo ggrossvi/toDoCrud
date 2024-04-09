@@ -18,6 +18,14 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    public Todo update(Integer id, CreateTodoDto dto) {
+        Todo todo = findOne(id).orElseThrow();
+        todo.setId(id);
+        todo.setTitle(dto.getTitle());
+        todo.setStatus(dto.getStatus());
+        return todoRepository.save(todo);
+    }
+
     public Optional<Todo> findOne(Integer id) {
         return todoRepository.findById(id);
     }
