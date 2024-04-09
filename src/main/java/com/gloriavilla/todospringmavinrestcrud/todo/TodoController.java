@@ -3,12 +3,14 @@ package com.gloriavilla.todospringmavinrestcrud.todo;
 import com.gloriavilla.todospringmavinrestcrud.todo.dto.CreateTodoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
+
 
 @Controller
 @RequestMapping("todos")
@@ -21,7 +23,10 @@ public class TodoController {
         return new ResponseEntity<>(todoService.create(dto), HttpStatus.CREATED);
     }
 
-//    private HttpStatusCode todoService(CreateTodoDto dto) {
-//        return null;
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity<Todo> findOne(@PathVariable("id") Integer id) {
+        Todo todo = todoService.findOne(id).orElseThrow();
+        return ResponseEntity.ok(todo);
+    }
+
 }
