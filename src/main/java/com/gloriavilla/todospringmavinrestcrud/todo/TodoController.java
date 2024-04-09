@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -18,6 +19,11 @@ public class TodoController {
 
     @Autowired
     private TodoService todoService;
+
+    @GetMapping
+    public ResponseEntity<List<Todo>> index() {
+        return ResponseEntity.ok(todoService.findAll());
+    }
     @PostMapping
     public ResponseEntity<Todo> create(@RequestBody CreateTodoDto dto) {
         return new ResponseEntity<>(todoService.create(dto), HttpStatus.CREATED);
